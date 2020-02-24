@@ -1,0 +1,57 @@
+/*Array87. Дан массив размераN, все элементы которого, кроме первого, упо-рядочены по возрастанию.
+Сделать массив упорядоченным, переместивпервый элемент на новую позицию.*/
+
+
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+
+    static void order(int a[], int n) {
+
+        for (int i = 0; i < n- 1; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if(a[j] > a[j+1]){  //просто отсортируем массив????? bubblesort
+                    int temp = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = temp;
+                }
+
+            }
+
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(a[i]+" ");
+        }
+
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+
+    // генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[] a = new int[100];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a, n);
+        printFunc(a, n);
+        System.out.println(" ");
+        order(a,n);
+
+
+    }
+}
+

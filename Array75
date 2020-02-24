@@ -1,0 +1,79 @@
+/*Array75. Дан массив размераN. Переставить в обратном порядке элементымассива, расположенные между его минимальным и максимальным эле-ментами, включая минимальный и максимальный элементы*/
+
+
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+
+    static void recompose(int a[], int n) {
+        int max = a[0];
+        int min = a[0];
+        int l = 0;
+        int r = 0;
+        for (int i = 0; i <n ; i++) {
+            if(max<a[i]){
+                max = a[i];
+                l = i;
+            }
+            if(min>a[i]) {
+                min = a[i];
+                //вопрос: как сделать эти ифы продуктивнее? ведь скорость 2n
+                r = i;
+            }
+
+
+        }
+        System.out.print("Max: " + max);
+        System.out.print("Min: " + min);
+        System.out.println(" ");
+        for (int i = l ; i >=r ; i--) {
+            System.out.print(a[i] + " ");
+        }
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+
+    // генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+
+    /*static void oddSummation(int[] a, int n) {
+        int selector = 0;
+        for(int i=0;i<n;i++) {
+            if(a[i]%2!=0){
+                selector=a[i];
+            }
+        }
+
+        System.out.println(" ");
+        System.out.print("Selector current state: ");
+        System.out.println(selector);
+        for(int i=0;i<n;i++) {
+            if(a[i]%2!=0){
+                a[i]+=selector;
+            }
+        }
+    }*/
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[] a = new int[20];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a,n);
+        printFunc(a,n);
+        System.out.println(" ");
+        recompose(a,n);
+
+    }
+}
+

@@ -1,0 +1,55 @@
+/*Array81. Дан массив размераNи целое числоK(1≤K<N).
+Осуществитьсдвигэлементов  массива  вправо  на K позиций
+ (при  этомA1перейдетвAK+1,A2— вAK+2,. . .,AN−K— вAN,
+а исходное значение K последнихэлементов  будет  потеряно).
+  Первые K элементов  полученного  массиваположить равными 0. */
+
+
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+
+    static void swap(int a[], int n, int b[],int k) {
+        for (int i = 0; i < n; i++){
+            b[i+1] = a[i];
+            a[i] = b[i];
+        }
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+
+    // генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[] a = new int[100];
+        int[] b = new int[100];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+
+        System.out.println("enter k:");
+        int k = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a, n);
+        printFunc(a, n);
+        System.out.println(" ");
+        swap(a, n, b, k);
+
+
+    }
+}
+

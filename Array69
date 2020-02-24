@@ -1,0 +1,63 @@
+/*AArray69. Дан массив размераN(N— четное число). Поменять местами егопервый элемент со вторым, третий — с четвертым и т. д.
+ */
+
+
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+    static void swap(int a[], int n) {
+        int temp = a[0];
+        for(int i=0;i<n;i++) {
+            temp = a[i];
+            a[i] = a[i+1];
+            a[i+1] = a[i];
+            if(a[i]==a[n]) a[i] = a[0];
+        }
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+// генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+
+    /*static void oddSummation(int[] a, int n) {
+        int selector = 0;
+        for(int i=0;i<n;i++) {
+            if(a[i]%2!=0){
+                selector=a[i];
+            }
+        }
+
+        System.out.println(" ");
+        System.out.print("Selector current state: ");
+        System.out.println(selector);
+        for(int i=0;i<n;i++) {
+            if(a[i]%2!=0){
+                a[i]+=selector;
+            }
+        }
+    }*/
+
+    public static void main(String[] args) {
+	   Scanner scan = new Scanner(System.in);
+        int[] a = new int[20];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a,n);
+        printFunc(a,n);
+        swap(a,n);
+        System.out.println(" ");
+        printFunc(a,n);
+
+     }
+}
+

@@ -1,0 +1,21 @@
+/*String41◦. Дана строка, состоящая из русских слов, разделенных пробелами(одним или несколькими). Найти количество слов в строке.*/
+package com.company;
+import java.util.Scanner;
+
+public class Main {
+
+    static void findMostWords(String s) {
+        int cnt=0;
+        for (int i = 0; i <s.length(); i++) {
+            if(s.matches("(.*) (.*)" )) cnt++;
+            System.out.println(cnt);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String s = new String("Корова вышла погулять но забыла закрыть дверь");
+        findMostWords(s); 
+    }
+}

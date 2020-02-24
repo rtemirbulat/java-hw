@@ -1,0 +1,37 @@
+
+/*String45.
+Дана строка, состоящая из русских слов, разделенных пробелами(одним или несколькими). 
+Найти длину самого короткого слова.*/
+
+package com.company;
+import java.util.Scanner;
+
+public class Main {
+
+    static void findMostlengths(String s) {
+
+        String[] temp = s.split(" ");
+        int[] length = new int[temp.length];
+        for (int i = 0; i <temp.length ; i++) {
+            if(temp[i] != ""){
+            length[i] = temp[i].length();
+            }
+        }
+        int min = length[0];
+        for (int i = 0; i <length.length ; i++) {
+            System.out.print(length[i]+" ");
+            if(length[i]<min) min=length[i];
+
+        }
+        System.out.println("min: ");
+        System.out.println(min);
+
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String s = new String("КоровА вышлА погулять но зАбыла зАкрыть дверь");
+        findMostlengths(s);
+    }
+}

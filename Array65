@@ -1,0 +1,45 @@
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+    static void printFunc(int[] a,int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+// генерим рандомные числа
+    static void fillArray(int[] a,int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+
+    static void reassemble(int[] a, int n, int k) {
+        int selector = a[k];
+        for(int i=0;i<n;i++) {
+            a[i]+=selector;
+        }
+    }
+
+    public static void main(String[] args) {
+/*
+Array65. Дан массивAразмераNи целое числоK(1≤K≤N). Преобразоватьмассив, увеличив каждый его элемент на исходное значение элементаAK.
+ */
+        Scanner scan = new Scanner(System.in);
+        int[] a = new int[20];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("enter k: ");
+        int k = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a,n);
+        printFunc(a,n);
+        System.out.println(" ");
+        reassemble(a,n,k);
+        System.out.print("after reassembling");
+        System.out.println(" ");
+        printFunc(a,n);
+    }
+}
+

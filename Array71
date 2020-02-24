@@ -1,0 +1,59 @@
+/*Array71. Дан массив размераN. Поменять порядок его элементов на обратный.*/
+
+
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+
+    static void reversed(int a[], int n) {
+        for (int i = n-1; i >= 0 ; i--) {
+            System.out.print(a[i] + " ");
+        }
+        //fori - cниппет для intellij для быстрого for(int i ...)
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+    // генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+
+    /*static void oddSummation(int[] a, int n) {
+        int selector = 0;
+        for(int i=0;i<n;i++) {
+            if(a[i]%2!=0){
+                selector=a[i];
+            }
+        }
+
+        System.out.println(" ");
+        System.out.print("Selector current state: ");
+        System.out.println(selector);
+        for(int i=0;i<n;i++) {
+            if(a[i]%2!=0){
+                a[i]+=selector;
+            }
+        }
+    }*/
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[] a = new int[20];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a,n);
+        printFunc(a,n);
+        System.out.println(" ");
+        reversed(a,n);
+
+    }
+}
+

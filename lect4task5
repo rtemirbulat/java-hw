@@ -1,0 +1,79 @@
+/*
+input: 1 2 3
+min and max
+ex2. input hello
+vowels and consonant
+ex3. 'a' 'e'
+all chars from a to e if 'e' 'a' ascii
+ex4.
+input 5, [1,2,3,4,5]
+void shift
+5,1,2,3,4
+ex 5
+transpose int a[][]
+input 3 3
+1 2 3   -> 1 4 7
+4 5 6      2 5 8
+7 8 9      3 6 9
+ */
+package com.company;
+import javax.sound.midi.Soundbank;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+    static void transpose(int a[][], int row, int col) {
+        int temp = 0;
+        for (int i = 0; i < row ; i++) {
+            for (int j = i; j < col ; j++) {
+                temp = a[i][j];
+                a[i][j] = a[j][i];
+                a[j][i] = temp;
+            }
+        }
+    }
+    static void printFunc(int[][] a, int row,int col){
+        for (int i = 0; i < row ; i++) {
+            System.out.println("");
+            for (int j = 0; j < col ; j++) {
+                System.out.print(a[i][j] + " ");
+            }
+        }
+    }
+
+    // генерим рандомные числа
+    /*static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }*/
+    static void fillArray(int[][] a, int row, int col) {
+        for (int i = 0; i < row ; i++) {
+            for (int j = 0; j < col ; j++) {
+                a[i][j] = ((int)(Math.random()*100));
+            }
+        }
+    }
+
+//generic
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[][] a = new int[100][100];/*
+        System.out.println("enter n:");
+        int n = scan.nextInt();*/
+        System.out.print("Enter num of row:");
+        int row = scan.nextInt();
+        System.out.print("Enter num of col");
+        int col = scan.nextInt();
+        System.out.println(" ");
+        System.out.println("Filling Array rand num:");
+        fillArray(a,row,col);
+        printFunc(a, row, col);
+        System.out.println(" ");
+        transpose(a, row, col);
+        System.out.println();
+        printFunc(a,row,col);
+
+
+    }
+}

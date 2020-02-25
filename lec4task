@@ -1,0 +1,85 @@
+/*
+input: 1 2 3
+min and max
+ex2. input hello
+vowels and consonant
+ex3. 'a' 'e'
+all chars from a to e if 'e' 'a' ascii
+
+ */
+package com.company;
+import java.util.Scanner;
+
+public class Main {
+    static void compare(int a, int b, int c) {
+        int min =0;
+        int max =0;
+        if(a>c && a >b) {
+            max = a;
+            if(c>b) min =b;
+            else min = c;
+        }
+        if(b>c && b> a) {
+            max = b;
+            if(a > c) min =c;
+            else min = a;
+        }
+        if(c>a && c>b) {
+            max = c;
+            if(b > a) min = a;
+            else min = b;
+        }
+        System.out.println("min : " + min);
+        System.out.println("max : " + max);
+    }
+
+
+    static void findMostlengths(String s) {
+
+        String[] temp = s.split(" ");
+        int[] length = new int[temp.length];
+        for (int i = 0; i <temp.length ; i++) {
+            if(temp[i] != ""){
+            length[i] = temp[i].length();
+            }
+        }
+        int min = length[0];
+        for (int i = 0; i <length.length ; i++) {
+            System.out.print(length[i]+" ");
+            if(length[i]<min) min=length[i];
+
+        }
+        System.out.println("min: ");
+        System.out.println(min);
+
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+    // генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+//generic
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+//        String s = new String("КоровА вышлА погулять но зАбыла зАкрыть дверь");
+  //      findMostlengths(s);
+  /*      int[] a = new int[20];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a,n);
+        printFunc(a,n);
+        System.out.println(" ");
+*/
+        int a = scan.nextInt();
+        int b = scan.nextInt();
+        int c = scan.nextInt();
+        compare(a, b, c);
+    }
+}

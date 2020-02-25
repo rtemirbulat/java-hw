@@ -1,0 +1,87 @@
+/*
+input: 1 2 3
+min and max
+ex2. input hello
+vowels and consonant
+ex3. 'a' 'e'
+all chars from a to e if 'e' 'a' ascii
+ex4.
+input 5, [1,2,3,4,5]
+void shift
+5,1,2,3,4
+ex 5
+transpose int a[][]
+input 3 3
+1 2 3   -> 1 4 7
+4 5 6      2 5 8
+7 8 9      3 6 9
+ */
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+    static void compare(int a, int b, int c) {
+        int min =0;
+        int max =0;
+        if(a>c && a >b) {
+            max = a;
+            if(c>b) min =b;
+            else min = c;
+        }
+        if(b>c && b> a) {
+            max = b;
+            if(a > c) min =c;
+            else min = a;
+        }
+        if(c>a && c>b) {
+            max = c;
+            if(b > a) min = a;
+            else min = b;
+        }
+        System.out.println("min : " + min);
+        System.out.println("max : " + max);
+    }
+
+
+    static void fromLetters(char first, char second) {
+        String temp = new String("abcdefghijklmnopqrstuvwxyz");
+        int firstIndex = 0;
+        int secondIndex = 0;
+        for (int i = 0; i < temp.length(); i++) {
+
+            if (first == temp.charAt(i)) firstIndex = i;
+            if (second == temp.charAt(i)) secondIndex = i;
+
+        }
+        if(secondIndex<firstIndex) {
+            int swap = secondIndex;
+            secondIndex = firstIndex;
+            firstIndex = swap;
+            for (int i = secondIndex; i >= firstIndex; i--) {
+                System.out.print(temp.charAt(i) + " ");
+            }
+
+        }
+
+        else
+            for (int i = firstIndex; i <= secondIndex; i++) {
+                System.out.print(temp.charAt(i) + " ");
+            }
+            System.out.println(" ");
+
+
+
+
+    }
+//generic
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+//      scan.next(" ");
+        System.out.println("Enter first: ");
+        char first = scan.next().charAt(0);
+        System.out.println("Enter second: ");
+        char second = scan.next().charAt(0);
+        fromLetters(first, second);
+    }
+}

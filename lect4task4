@@ -1,0 +1,64 @@
+/*
+input: 1 2 3
+min and max
+ex2. input hello
+vowels and consonant
+ex3. 'a' 'e'
+all chars from a to e if 'e' 'a' ascii
+ex4.
+input 5, [1,2,3,4,5]
+void shift
+5,1,2,3,4
+ex 5
+transpose int a[][]
+input 3 3
+1 2 3   -> 1 4 7
+4 5 6      2 5 8
+7 8 9      3 6 9
+ */
+package com.company;
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
+public class Main {
+    static void swap(int a[], int n, int b[]) {
+
+        for (int i = 0; i <= n; i++){
+            b[i+1] = a[i];
+            a[i] = b[i];
+            int temp = a[n];
+            a[0] = temp;
+        }
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+    static void printFunc(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+
+    // генерим рандомные числа
+    static void fillArray(int[] a, int n){
+        for(int i=0;i<n;i++) {
+            a[i] = ((int)(Math.random()*100));
+        }
+    }
+//generic
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[] a = new int[100];
+        int[] b = new int[100];
+        System.out.println("enter n:");
+        int n = scan.nextInt();
+        System.out.println("Filling Array rand num:");
+        fillArray(a, n);
+        printFunc(a, n);
+        System.out.println(" ");
+        swap(a, n, b);
+
+
+
+    }
+}

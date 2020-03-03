@@ -1,0 +1,41 @@
+package com.company;
+class Account { 
+    private String id;
+    private String name;
+    private int balance = 0;
+
+public Account(String id, String name){
+    this.id = id;
+    this.name = name;
+    this.balance = balance;
+}
+public Account(String id, String name, int balance){
+
+}
+public String getID(){
+ return id;
+}
+public String getName(){return name;}
+
+public int getBalance(){return balance;}
+
+public int credit() {
+    return 0;
+}
+public int debit() {
+    return 0;
+}
+
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", ID: " + id + ", salary: " + getSalary();
+    }
+}
+
+    public class Main {
+        public void main(String[] args) {
+
+        }
+    }
+}

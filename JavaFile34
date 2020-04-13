@@ -1,0 +1,53 @@
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+    /*public static int[] toIntArray(String input, String delimiter) {
+
+        return  Arrays.stream(input.split(delimiter))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+    }*/
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        String thisLine = null;
+        BufferedReader br = null;
+        BufferedReader br1= null;
+        try{
+            br = new BufferedReader(new FileReader("src/Workshop/note.txt"));
+            File file = new File("src/Workshop/output.txt");
+            FileWriter fw = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(new BufferedWriter(fw));
+            System.out.println("Reading file: ");
+            String line = new String("");
+            while((thisLine = br.readLine())!=null){
+                line = thisLine;
+                System.out.println(thisLine);
+            }
+            String[] separated = line.split(",");
+            int[] ints = new int[separated.length];
+            for (int i = 0; i <separated.length ; i++) {
+                ints[i]=Integer.parseInt(separated[i]);
+            }
+            for (int i = 0; i < ints.length ; i++) {
+                if(ints[i]<0) continue;
+                bw.write(ints[i]+" ");
+            }
+            bw.close();
+            //write and read
+            br1 = new BufferedReader(new FileReader("src/Workshop/output.txt"));
+            while((thisLine = br1.readLine())!=null){
+             //   line = thisLine;
+                System.out.println(thisLine);
+            }
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+
+    }
+}

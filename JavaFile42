@@ -1,0 +1,118 @@
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+    /*public static int[] toIntArray(String input, String delimiter) {
+
+        return  Arrays.stream(input.split(delimiter))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+    }*/
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        String thisLine = null;
+        BufferedReader br = null;
+        BufferedReader br1= null;
+        try{
+            br = new BufferedReader(new FileReader("src/Workshop/note.txt"));
+            br1 = new BufferedReader(new FileReader("src/Workshop/output.txt"));
+            File file = new File("src/Workshop/note.txt");
+            File file1 = new File("src/Workshop/output.txt");
+
+            FileWriter fw = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(new BufferedWriter(fw));
+
+            FileWriter fw1 = new FileWriter(file1,true);
+            BufferedWriter bw1 = new BufferedWriter(new BufferedWriter(fw1));
+
+
+            System.out.println("Reading file 1: ");
+            String line = new String("");
+            String line2 = new String("");
+            while((thisLine = br.readLine())!=null){
+                line = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 2: ");
+            while((thisLine = br1.readLine())!=null){
+                line2 = thisLine;
+                System.out.println(thisLine);
+            }
+            String[] str = line.split(",");
+            String[] str1 = line2.split(",");
+            int[] ints = new int[str.length];
+            int[] ints1 = new int[str1.length];
+            for (int i = 0; i <str.length ; i++) {
+                ints[i]=Integer.parseInt(str1[i]);
+            }
+            for (int i = 0; i <str1.length ; i++) {
+                ints1[i]=Integer.parseInt(str[i]);
+            }
+            System.out.println("Parsed array of nums in file1: ");
+            for (int i = 0; i <ints.length ; i++) {
+                System.out.print(ints[i]+" ");
+            }
+            System.out.println("");
+            System.out.println("Parsed array of nums in file2: ");
+            for (int i = 0; i <ints1.length ; i++) {
+                System.out.print(ints1[i]+" ");
+            }
+            if(file.delete())System.out.println(file.getName() + " is deleted!");
+            else System.out.println("Delete failed: File didn't delete");
+
+            if(file1.delete())System.out.println(file1.getName() + " is deleted!");
+            else System.out.println("Delete failed: File1 didn't delete");
+
+            boolean fvar = file.createNewFile();
+            if (fvar) System.out.println("File has been created successfully");
+            else System.out.println("File already present at the specified location");
+
+            boolean fvar1 = file1.createNewFile();
+            if (fvar1) System.out.println("File has been created successfully");
+            else System.out.println("File already present at the specified location");
+
+            for (int i = 0; i < ints.length ; i++) {
+                bw.write(ints[i]+" ");
+                }
+            bw.close();
+            for (int i = 0; i < ints1.length ; i++) {
+                bw1.write(ints1[i]+" ");
+            }
+            bw1.close();
+            System.out.println("Output1");
+            while((thisLine = br.readLine())!=null){
+                System.out.println(thisLine);
+            }
+            System.out.println("Output2: ");
+            while((thisLine = br1.readLine())!=null){
+
+                System.out.println(thisLine);
+            }
+
+
+/*
+            for (int i = 0; i < ints.length ; i++) {
+                if(i%2==0) {
+                    bw.write("00"+" ");
+                    continue;
+                }
+                bw.write(ints[i]+" ");
+            }
+            bw.close();
+            //write and read
+            System.out.println("Output: ");
+            br1 = new BufferedReader(new FileReader("src/Workshop/output.txt"));
+            while((thisLine = br1.readLine())!=null){
+                //   line = thisLine;
+                System.out.println(thisLine);
+            }*/
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+    }
+}

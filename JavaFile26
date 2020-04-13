@@ -1,0 +1,56 @@
+// file homework 25-90 all even tasks
+
+
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        BufferedReader br = null;
+        BufferedReader br1 = null;
+        try{
+            br = new BufferedReader(new FileReader("src/Workshop/note.txt"));
+            File file = new File("src/Workshop/output.txt");
+            FileWriter fw = new FileWriter(file,true);
+          BufferedWriter  bw = new BufferedWriter(new BufferedWriter(fw));
+            System.out.println("Reading file: ");
+            int cnt = 0; int i=0;
+            int min = 49;
+            int max = 49;
+            int[] arr = new int [20];
+            while((cnt=br.read())!= -1){
+                arr[i] = cnt;
+                if(min>arr[i]) min = arr[i];
+                if(max<arr[i]) max = arr[i];
+                i++;
+            }
+            System.out.println("max val: " + (char)max);
+            System.out.println("min val: " + (char)min);
+            System.out.println("Printing an array :");
+            for (int value : arr) {
+                System.out.print((char) value + " ");
+            }
+            for (int j = 0; j < arr.length ; j++) {
+                if(arr[j]==max) arr[j] = min;
+                else if(arr[j] ==min) arr[j] = max;
+                bw.write(arr[j]);
+            }
+            bw.close();
+            System.out.println("Reading from output file: ");
+            br1 = new BufferedReader(new FileReader("src/Workshop/output.txt"));
+            while((cnt=br1.read())!= -1){
+                System.out.print((char)cnt+" ");
+            }
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+
+    }
+}

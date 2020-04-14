@@ -1,0 +1,101 @@
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        String thisLine = null;
+        BufferedReader br1= null;
+        BufferedReader br2= null;
+        BufferedReader br3 = null;
+        BufferedReader br4 = null;
+        BufferedReader br = null;
+        try{
+            //Readers
+            br1 = new BufferedReader(new FileReader("src/Workshop/1.txt"));
+            br2 = new BufferedReader(new FileReader("src/Workshop/2.txt"));
+            br3 = new BufferedReader(new FileReader("src/Workshop/3.txt"));
+            br4 = new BufferedReader(new FileReader("src/Workshop/4.txt"));
+            br = new BufferedReader(new FileReader("src/Workshop/output.txt"));
+
+            File file = new File( "src/Workshop/output.txt");
+            File file1 = new File("src/Workshop/1.txt");
+            File file2 = new File("src/Workshop/2.txt");
+            File file3 = new File("src/Workshop/3.txt");
+            File file4 = new File("src/Workshop/4.txt");
+            //Writing objects
+
+            FileWriter fw = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(new BufferedWriter(fw));
+
+            FileWriter fw1 = new FileWriter(file1,true);
+            BufferedWriter bw1 = new BufferedWriter(new BufferedWriter(fw1));
+
+            FileWriter fw2 = new FileWriter(file2,true);
+            BufferedWriter bw2 = new BufferedWriter(new BufferedWriter(fw2));
+
+            FileWriter fw3 = new FileWriter(file3,true);
+            BufferedWriter bw3 = new BufferedWriter(new BufferedWriter(fw3));
+
+            //to contain string read
+            String line1 = new String("");
+            String line2 = new String("");
+            String line3 = new String("");
+            String line4 = new String("");
+            String line = new String("");
+
+            //Reading process
+            System.out.println("Reading file 1: ");
+            while((thisLine = br1.readLine())!=null){
+                line1 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 2: ");
+            while((thisLine = br2.readLine())!=null){
+                line2 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 3: ");
+            while((thisLine = br3.readLine())!=null){
+                line3 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 4: ");
+            while((thisLine = br4.readLine())!=null){
+                line4 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file s0: ");
+            while((thisLine = br.readLine())!=null) {
+                line = thisLine;
+                System.out.println(thisLine);
+            }
+            File temp = new File("src/Workshop/"+line+".txt");
+            boolean fvar = temp.createNewFile();
+            FileWriter tmp = new FileWriter(temp,true);
+            BufferedWriter tempw = new BufferedWriter(new BufferedWriter(tmp));
+            if(fvar) {
+                System.out.println(temp.getName() + "created ");
+            }
+            else System.out.println("File present at location");
+            String[] container = new String[4];
+            container[0] = line1;
+            container[1] = line2;
+            container[2] = line3;
+            container[3] = line4;
+            for (int i = 0; i < container.length ; i++) {
+                tempw.write(container[i]+"\n");
+            }
+            tempw.close();
+
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,185 @@
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+  
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        String thisLine = null;
+        BufferedReader br1= null;
+        BufferedReader br2= null;
+        BufferedReader br3 = null;
+        try{
+            //Readers
+            br1 = new BufferedReader(new FileReader("src/Workshop/1.txt"));
+            br2 = new BufferedReader(new FileReader("src/Workshop/2.txt"));
+            br3 = new BufferedReader(new FileReader("src/Workshop/3.txt"));
+
+            File file1 = new File("src/Workshop/1.txt");
+            File file2 = new File("src/Workshop/2.txt");
+            File file3 = new File("src/Workshop/3.txt");
+
+            //Writing objects
+            FileWriter fw1 = new FileWriter(file1,true);
+            BufferedWriter bw1 = new BufferedWriter(new BufferedWriter(fw1));
+
+            FileWriter fw2 = new FileWriter(file2,true);
+            BufferedWriter bw2 = new BufferedWriter(new BufferedWriter(fw2));
+
+            FileWriter fw3 = new FileWriter(file3,true);
+            BufferedWriter bw3 = new BufferedWriter(new BufferedWriter(fw3));
+
+            //to contain string read
+            String line1 = new String("");
+            String line2 = new String("");
+            String line3 = new String("");
+
+            //Reading process
+            System.out.println("Reading file 1: ");
+            while((thisLine = br1.readLine())!=null){
+                line1 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 2: ");
+            while((thisLine = br2.readLine())!=null){
+                line2 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 3: ");
+            while((thisLine = br3.readLine())!=null){
+                line3 = thisLine;
+                System.out.println(thisLine);
+            }
+            //Delimeter
+            String[] str1 = line1.split(" ");
+            String[] str2 = line2.split(" ");
+            String[] str3 = line3.split(" ");
+            //To contain integer
+            int[] arr1 = new int[str1.length];
+            int[] arr2 = new int[str2.length];
+            int[] arr3 = new int[str3.length];
+            //Parse
+            for (int i = 0; i <str1.length ; i++) {
+                arr1[i]=Integer.parseInt(str1[i]);
+            }
+            for (int i = 0; i <str2.length ; i++) {
+                arr2[i]=Integer.parseInt(str2[i]);
+            }
+            for (int i = 0; i <str3.length ; i++) {
+                arr3[i]=Integer.parseInt(str3[i]);
+            }
+     
+            int min = arr1.length;
+            int max = arr1.length;
+            int min_index = 1;
+            int max_index = 1;
+            int[] size = {arr1.length,arr2.length,arr3.length};
+            for (int i = 0; i < size.length ; i++) {
+                if(size[i]<min){
+                    min = size[i];
+                    min_index = i+1;
+                }
+                if(size[i]>max) {
+                    max = size[i];
+                    max_index = i+1;
+                }
+            }
+            System.out.println(" ");
+            System.out.println("Maximum char-s in file:"+ max_index + " equal to " + max);
+            System.out.println("Minimum char-s in file:"+ min_index + " equal to " + min);
+
+            switch(max_index){
+                case(1):
+                    if(file1.delete())System.out.println(file1.getName() + " is deleted!");
+                    else System.out.println("Delete failed: File didn't delete");
+                    file1.createNewFile();
+                    MinWriter(bw1, bw2, bw3, arr1, arr2, arr3, min_index);
+                    break;
+                case(2):
+                    if(file2.delete())System.out.println(file2.getName() + " is deleted!");
+                    else System.out.println("Delete failed: File didn't delete");
+                    file2.createNewFile();
+                    MinWriter(bw1, bw2, bw3, arr1, arr2, arr3, min_index);
+                    break;
+                case(3):
+                    if(file3.delete())System.out.println(file3.getName() + " is deleted!");
+                    else System.out.println("Delete failed: File didn't delete");
+                    file3.createNewFile();
+                    MinWriter(bw1, bw2, bw3, arr1, arr2, arr3, min_index);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Max not found");
+            }
+            switch(min_index){
+                case(1):
+                    if(file1.delete())System.out.println(file1.getName() + " is deleted!");
+                    else System.out.println("Delete failed: File didn't delete");
+                    MaxWriter(bw1, bw2, bw3, arr1, arr2, arr3, max_index);
+                    break;
+                case(2):
+                    if(file2.delete())System.out.println(file2.getName() + " is deleted!");
+                    else System.out.println("Delete failed: File didn't delete");
+                    MaxWriter(bw1, bw2, bw3, arr1, arr2, arr3, max_index);
+                    break;
+                case(3):
+                    if(file3.delete())System.out.println(file3.getName() + " is deleted!");
+                    else System.out.println("Delete failed: File didn't delete");
+                    MaxWriter(bw1, bw2, bw3, arr1, arr2, arr3, max_index);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Min not found");
+            }
+
+
+         
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+    }
+
+    private static void MinWriter(BufferedWriter bw1, BufferedWriter bw2, BufferedWriter bw3, int[] arr1, int[] arr2, int[] arr3, int min_index) throws IOException {
+        switch(min_index) {
+            case 1:
+                for (int value : arr1) {
+                    bw1.write(value + " ");
+                }
+                bw1.close();
+            case 2:
+                for (int value : arr2) {
+                    bw2.write(value + " ");
+                }
+                bw2.close();
+            case 3:
+                for (int value : arr3) {
+                    bw3.write(value + " ");
+                }
+                bw3.close();
+        }
+
+    }
+    private static void MaxWriter(BufferedWriter bw1, BufferedWriter bw2, BufferedWriter bw3, int[] arr1, int[] arr2, int[] arr3, int max_index) throws IOException {
+        switch(max_index) {
+            case 1:
+                for (int value : arr1) {
+                    bw1.write(value + " ");
+                }
+                bw1.close();
+            case 2:
+                for (int value : arr2) {
+                    bw2.write(value + " ");
+                }
+                bw2.close();
+            case 3:
+                for (int value : arr3) {
+                    bw3.write(value + " ");
+                }
+                bw3.close();
+        }
+
+    }
+}

@@ -1,0 +1,125 @@
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        Scanner sc = new Scanner(System.in);
+        String thisLine = null;
+        BufferedReader br1= null;
+        BufferedReader br2= null;
+        BufferedReader br3 = null;
+        BufferedReader br4 = null;
+        BufferedReader br = null;
+        BufferedReader nd = null;
+        String name_D = new String("");
+        System.out.println("Enter name of D file: ");
+        name_D = sc.next();
+        System.out.println(" ");
+
+        try{
+            //Readers
+            br1 = new BufferedReader(new FileReader("src/Workshop/1.txt"));
+            br2 = new BufferedReader(new FileReader("src/Workshop/2.txt"));
+            br3 = new BufferedReader(new FileReader("src/Workshop/3.txt"));
+            br4 = new BufferedReader(new FileReader("src/Workshop/4.txt"));
+            br = new BufferedReader(new FileReader("src/Workshop/output.txt"));
+
+            File named = new File("src/Workshop/"+name_D+".txt");
+
+            File file = new File( "src/Workshop/output.txt");
+            File file1 = new File("src/Workshop/1.txt");
+            File file2 = new File("src/Workshop/2.txt");
+            File file3 = new File("src/Workshop/3.txt");
+            File file4 = new File("src/Workshop/4.txt");
+            //Writing objects
+
+            FileWriter fw = new FileWriter(named,true);
+            BufferedWriter bw = new BufferedWriter(new BufferedWriter(fw));
+
+            FileWriter fw1 = new FileWriter(file1,true);
+            BufferedWriter bw1 = new BufferedWriter(new BufferedWriter(fw1));
+
+            FileWriter fw2 = new FileWriter(file2,true);
+            BufferedWriter bw2 = new BufferedWriter(new BufferedWriter(fw2));
+
+            FileWriter fw3 = new FileWriter(file3,true);
+            BufferedWriter bw3 = new BufferedWriter(new BufferedWriter(fw3));
+
+            //to contain string read
+            String line1 = new String("");
+            String line2 = new String("");
+            String line3 = new String("");
+            String line4 = new String("");
+            String line = new String("");
+
+            //Reading process
+            System.out.println("Reading file 1: ");
+            while((thisLine = br1.readLine())!=null){
+                line1 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 2: ");
+            while((thisLine = br2.readLine())!=null){
+                line2 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 3: ");
+            while((thisLine = br3.readLine())!=null){
+                line3 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 4: ");
+            while((thisLine = br4.readLine())!=null){
+                line4 = thisLine;
+                System.out.println(thisLine);
+            }
+            //numbers
+
+            String[] s1 = line1.split(" ");
+            String[] s2 = line2.split(" ");
+            String[] s3 = line3.split(" ");
+            String[] s4 = line4.split(" ");
+
+            int[] arr1 = new int[s1.length];
+            int[] arr2 = new int[s2.length];
+            int[] arr3 = new int[s3.length];
+            int[] arr4 = new int[s4.length];
+            //parsing
+            for (int i = 0; i <s1.length ; i++) {
+                arr1[i]=Integer.parseInt(s1[i]);
+            }
+            for (int i = 0; i <s2.length ; i++) {
+                arr2[i]=Integer.parseInt(s2[i]);
+            }
+            for (int i = 0; i <s3.length ; i++) {
+                arr3[i]=Integer.parseInt(s3[i]);
+            }
+            for (int i = 0; i <s4.length ; i++) {
+                arr4[i]=Integer.parseInt(s4[i]);
+            }
+            System.out.println("ARRAY : : : :  : : : : : ");
+            int[][] arr = {arr1,arr2,arr3,arr4};
+            for (int i = 0; i < arr.length ; i++) {
+                bw.write("\n");
+                for (int j = 0; j < arr.length ; j++) {
+                    bw.write(arr[j][i]+" ");
+                }
+            }
+            bw.close();
+            nd = new BufferedReader(new FileReader("src/Workshop/"+name_D+".txt"));
+            while((thisLine = nd.readLine())!=null){
+                System.out.println(thisLine);
+            }
+
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+    }
+}

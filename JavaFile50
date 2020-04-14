@@ -1,0 +1,125 @@
+package Workshop;
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
+import java.io.FileNotFoundException;
+
+public class Main {
+    void merge(int[] arr, int l, int m, int r)
+    {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        int L[] = new int [n1];
+        int R[] = new int [n2];
+        for (int i=0; i<n1; ++i)
+            L[i] = arr[l + i];
+        for (int j=0; j<n2; ++j)
+        R[j] = arr[m + 1+ j];
+        int i = 0, j = 0;
+        int k = l;
+        while (i < n1 && j < n2)
+        {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            }
+            else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+    void sort(int[] arr, int l, int r) {
+        if (l < r)
+        {   int m = (l+r)/2;
+            sort(arr, l, m);
+            sort(arr , m+1, r);
+            merge(arr, l, m, r);
+        }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        Scanner sc = new Scanner(System.in);
+        String thisLine = null;
+        BufferedReader br1= null;
+        BufferedReader br2= null;
+        BufferedReader br3 = null;
+
+        try{
+            //Readers
+            br1 = new BufferedReader(new FileReader("src/Workshop/1.txt"));
+            br2 = new BufferedReader(new FileReader("src/Workshop/2.txt"));
+            br3 = new BufferedReader(new FileReader("src/Workshop/3.txt"));
+
+            File file1 = new File("src/Workshop/1.txt");
+            File file2 = new File("src/Workshop/2.txt");
+            File file3 = new File("src/Workshop/3.txt");
+            //Writing objects
+
+            FileWriter fw1 = new FileWriter(file3,true);
+            BufferedWriter bw1 = new BufferedWriter(new BufferedWriter(fw1));
+
+
+            //to contain string read
+            String line1 = new String("");
+            String line2 = new String("");
+            String line3 = new String("");
+
+            //Reading process
+            System.out.println("Reading file 1: ");
+            while((thisLine = br1.readLine())!=null){
+                line1 = thisLine;
+                System.out.println(thisLine);
+            }
+            System.out.println("Reading file 2: ");
+            while((thisLine = br2.readLine())!=null){
+                line2 = thisLine;
+                System.out.println(thisLine);
+            }
+
+            String[] s1 = line1.split(" ");
+            String[] s2 = line2.split(" ");
+            //String[] s3 = line3.split(" ");
+
+            int[] arr1 = new int[s1.length];
+            int[] arr2 = new int[s2.length];
+            //parsing
+            for (int i = 0; i <s1.length ; i++) {
+                arr1[i]=Integer.parseInt(s1[i]);
+            }
+            for (int i = 0; i <s2.length ; i++) {
+                arr2[i]=Integer.parseInt(s2[i]);
+            }
+            int size = arr1.length+arr2.length;
+            int[] arr3 = new int[size];
+            System.arraycopy(arr1, 0, arr3, 0, arr1.length);
+            System.arraycopy(arr2, 0, arr3, arr1.length, arr2.length);
+            System.out.println("Concat: ");
+            Main obj = new Main();
+            obj.sort(arr3,0,arr3.length-1);
+            bw1.write(Arrays.toString(arr3));
+            bw1.close();
+            System.out.println(" ");
+            while((thisLine = br3.readLine())!=null){
+                System.out.println(thisLine);
+            }
+
+        }
+        catch(IOException e){
+            System.out.println("Exception thrown ");
+            e.printStackTrace();
+        }
+    }
+}

@@ -47,56 +47,126 @@ public class Main {
 //3
 
 package Homework;
+
 import java.io.*;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.io.FileNotFoundException;
 
 public class Main {
+    //Linear search o(n^2)
+    static int mostRepeated(int arr[], int n)
+    {
+        int max_count = 1, res = arr[0];
+        int curr_count = 1;
+
+        for (int i = 1; i < n; i++)
+        {
+            if (arr[i] == arr[i - 1])
+                curr_count++;
+            else
+            {
+                if (curr_count > max_count)
+                {
+                    max_count = curr_count;
+                    res = arr[i - 1];
+                }
+                curr_count = 1;
+            }
+        }
+        if (curr_count > max_count)
+        {
+            max_count = curr_count;
+            res = arr[n - 1];
+        }
+        return res;
+    }
+
+    void merge(int[] arr, int l, int m, int r)
+    {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        int L[] = new int [n1];
+        int R[] = new int [n2];
+        for (int i=0; i<n1; ++i)
+            L[i] = arr[l + i];
+        for (int j=0; j<n2; ++j)
+            R[j] = arr[m + 1+ j];
+        int i = 0, j = 0;
+        int k = l;
+        while (i < n1 && j < n2)
+        {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            }
+            else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+    void sort(int[] arr, int l, int r) {
+        if (l < r)
+        {   int m = (l+r)/2;
+            sort(arr, l, m);
+            sort(arr , m+1, r);
+            merge(arr, l, m, r);
+        }
+    }
     public static void main(String[] args) throws FileNotFoundException
     {
         String thisLine = null;
         BufferedReader br = null;
-     //   BufferedReader br1= null;
         try{
             br = new BufferedReader(new FileReader("src/Homework/random_numbers.txt"));
-            //File file = new File("src/Workshop/output.txt");
-            //FileWriter fw = new FileWriter(file,true);
-            //BufferedWriter bw = new BufferedWriter(new BufferedWriter(fw));
             System.out.println("Reading file: ");
-            String line = new String("");
+            String[] line = new String[600];
+            int cnt = 0;
             while((thisLine = br.readLine())!=null){
-                line = thisLine;
+
+                line[cnt] = thisLine;
+                cnt++;
                 System.out.println(thisLine);
             }
-            //Файл прочитан
-            String[] separated = line.split("\r\n");
-            int[] ints = new int[separated.length];
-            for (int i = 0; i <separated.length ; i++) {
-                ints[i] = Integer.parseInt(separated[i]);
+            int[] ints = new int[line.length];
+            for (int i = 0; i <line.length ; i++) {
+                ints[i]=Integer.parseInt(line[i]);
             }
-            System.out.println("Parsed array of nums: ");
-            for (int i = 0; i <ints.length ; i++) {
+            Main obj = new Main();
+            obj.sort(ints,0,ints.length-1);
+            System.out.println("Ints sorted :");
+            for (int i = 0; i < ints.length ; i++) {
                 System.out.print(ints[i]+" ");
             }
-            System.out.println("Length of ints[i]: ");
-            System.out.println(ints.length);
-/*
-            for (int i = 0; i < ints.length ; i++) {
-                if(i%2==0) {
-                    bw.write("00"+" ");
-                    continue;
+            int count = 1;
+            for (int i = 0; i < ints.length; i++) {
+
+                for (int j = i + 1; j < ints.length; j++) {
+                    if (ints[i] == ints[j]) {
+                        count++;
+                    }
                 }
-                bw.write(ints[i]+" ");
+                if (count > 1) {
+                    System.out.println();
+                    System.out.println("The value " + ints[i] + "repeated : " + count + " times");
+                    i = i + count - 1;
+                }
+                count = 1;
             }
-            bw.close();*/
-            //write and read
-            /*System.out.println("Output: ");
-            br1 = new BufferedReader(new FileReader("src/Workshop/output.txt"));
-            while((thisLine = br1.readLine())!=null){
-                //   line = thisLine;
-                System.out.println(thisLine);
-            }*/
+            System.out.println("The most repeated val : "+ mostRepeated(ints,ints.length));
         }
         catch(IOException e){
             System.out.println("Exception thrown ");
@@ -104,4 +174,6 @@ public class Main {
         }
 
     }
+
+
 }

@@ -1,0 +1,44 @@
+package Homework;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter n: ");
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            System.out.println("Enter array num-s:");
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+            }
+            System.out.println("Your array: ");
+            print(arr, n);
+            System.out.println("Enter m value: ");
+            int m = sc.nextInt();
+            if (m > n) throw new NumberFormatException();
+            System.out.print(avg(arr, m));
+        }
+        catch(NumberFormatException e){
+            System.out.println("Exception occurred, there is only 'n' integers in array!!!");
+        }
+    }
+
+    private static void print(int[] arr,int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+    private static double avg(int[] arr, int m) throws ArithmeticException,NumberFormatException {
+        if(m==0) {
+            throw new ArithmeticException("Exception occurred, m should not be a zero");
+        }
+        else if(m<0) throw new NumberFormatException("Exception occurred, m cannot be a lesser than zero");
+        double sum = 0;
+        for (int i = 0; i < m; i++) {
+            sum += arr[i];
+            sum /= m;
+        }
+        return sum;
+    }
+}

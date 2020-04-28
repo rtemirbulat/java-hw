@@ -1,0 +1,148 @@
+//Main
+package sample;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        primaryStage.setTitle("Debt calc by Rassul");
+        primaryStage.setScene(new Scene(root, 400, 408));
+        primaryStage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+//Controller.java
+package sample;
+import com.sun.jdi.IntegerValue;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
+public class Controller {
+
+    @FXML
+    private Button resButton;
+
+    @FXML
+    private TextField actDay;
+
+    @FXML
+    private TextField expDay;
+
+    @FXML
+    private TextField actMonth;
+
+    @FXML
+    private TextField expMonth;
+
+    @FXML
+    private TextField actYear;
+
+    @FXML
+    private TextField expYear;
+
+    @FXML
+    private TextField result;
+
+    private static final int fine_day = 15;
+    private static final int fine_month = 500;
+    private static final int fine_year = 8000;
+
+
+    public void getResult(ActionEvent event) {
+
+   int resY = 0;
+   int resM = 0;
+   int resD = 0;
+   int res = 0;
+    int year = (Integer.parseInt(actYear.getText()) - Integer.parseInt(expYear.getText()));
+    int month = (Integer.parseInt(actMonth.getText()) - Integer.parseInt(expMonth.getText()));
+    int day = (Integer.parseInt(actDay.getText()) - Integer.parseInt(expDay.getText()));
+    if (year > 0 || month > 0 || day>0){
+        if(year>0 && month > 0 && day>0){
+            resY+=year*fine_year;
+            resM+=month*fine_month;
+            resD+=day*fine_day;
+        }
+        else if(year > 0 && day> 0){
+            resY+=year*fine_year;
+            resD+=day*fine_day;
+        }
+        else if(year > 0 && month> 0){
+            resY+=year*fine_year;
+            resM+=month*fine_month;
+        }
+        else if(month > 0 && day> 0 ){
+            resD+=day*fine_day;
+            resM+=month*fine_month;
+        }
+    }
+    else result.setText("Not late");
+        res = resY + resM + resD;
+        result.setText(res + "$");
+    res = 0;
+    //result blablabla
+    }
+}
+//sample.fxml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="396.0" prefWidth="407.0" style="-fx-background-color: cyan;">
+         <children>
+            <Button fx:id="resButton" layoutX="176.0" layoutY="241.0" mnemonicParsing="false" onAction="#getResult" text="result">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Button>
+            <TextField fx:id="actDay" layoutX="71.0" layoutY="121.0" prefHeight="26.0" prefWidth="34.0" promptText="12" />
+            <TextField fx:id="expDay" layoutX="71.0" layoutY="164.0" prefHeight="26.0" prefWidth="34.0" promptText="1" />
+            <TextField fx:id="actMonth" layoutX="137.0" layoutY="121.0" prefHeight="26.0" prefWidth="34.0" promptText="12" />
+            <TextField fx:id="expMonth" layoutX="137.0" layoutY="164.0" prefHeight="26.0" prefWidth="34.0" promptText="2" />
+            <TextField fx:id="actYear" layoutX="212.0" layoutY="121.0" prefHeight="26.0" prefWidth="56.0" promptText="2019" />
+            <TextField fx:id="expYear" layoutX="212.0" layoutY="164.0" prefHeight="26.0" prefWidth="56.0" promptText="2020" />
+            <Label layoutX="290.0" layoutY="126.0" text="Actual Date">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Label>
+            <Label layoutX="290.0" layoutY="169.0" text="Expected Date">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Label>
+            <TextField fx:id="result" editable="false" layoutX="142.0" layoutY="297.0" prefHeight="26.0" prefWidth="125.0" promptText="0$" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="166.0" layoutY="275.0" prefHeight="16.0" prefWidth="77.0" text="fine :">
+               <font>
+                  <Font name="Bitstream Vera Sans Mono Bold" size="13.0" />
+               </font></Label>
+            <Label layoutX="35.0" layoutY="60.0" prefHeight="16.0" prefWidth="352.0" text="Fork it on git: " />
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

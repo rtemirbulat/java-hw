@@ -1,0 +1,113 @@
+//SERVLET
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.Instant;
+import java.time.*;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+
+@WebServlet("/vote")
+public class vote_driver extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    public static String convertSecondsToHMmSs(long seconds) {
+        long s = seconds % 60;
+        long m = (seconds / 60) % 60;
+        long h = (seconds / (60 * 60)) % 24;
+        return String.format("%d:%02d:%02d", h,m,s);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        String name = (String) session.getAttribute("name");
+
+        PrintWriter out = response.getWriter();
+        try{
+            if(name==null){
+                String htmlresponse = "<html>";
+                LocalTime time = LocalTime.now();
+                LocalDate date = LocalDate.now();
+                Voter voter = new Voter(time,date);
+                session.setAttribute("name",voter.toString());
+
+                htmlresponse += "<h2>Vote counted successfully  </h2>" + "\n";
+                htmlresponse += "<h2> server time registered: " + date + " \n" + "</h2>";
+                        htmlresponse+= "<h2> time: "+ time + "</h2>";
+                htmlresponse += "<h2> Session id:" + session.getId() + "</h2>";
+                htmlresponse+= "<a href='index.jsp'> Return"+"</a>";
+                htmlresponse+= "</html>";
+                out.println(htmlresponse);
+                session.setMaxInactiveInterval(60*60*24);
+
+            }
+            else{
+                String htmlresponse = "<html>";
+                Date created = new Date(session.getCreationTime());
+
+                htmlresponse += "<h2>Vote failed, last voting : " + created + "</h2>" + "\n";
+                Date time_expires = new Date((session.getCreationTime()+86400000));
+                htmlresponse += "<h2> please try again on :" + time_expires.toString() +"</h2>" + "\n";
+                Instant start = Instant.now();
+                long time_left = session.getCreationTime()+86400000- start.toEpochMilli();
+                String d =String.format("%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(time_left),
+                        TimeUnit.MILLISECONDS.toMinutes(time_left) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(time_left)),
+                        TimeUnit.MILLISECONDS.toSeconds(time_left) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time_left)));
+
+
+                htmlresponse+= "<h2> Time Left : "+ d +" </h2> " + "\n";
+                htmlresponse+= "<a href='index.jsp'> Return"+"</a>";
+                htmlresponse+= "</html>";
+                out.println(htmlresponse);
+            }
+        }
+        finally{
+            out.close();
+        }
+
+
+    }
+}
+
+// INDEX.JSP 
+
+<%--
+  Created by IntelliJ IDEA.
+  User: xL3F-Rassul
+  Date: 4/2/2021
+  Time: 6:32 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <title>$Vote$</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <form action="vote">
+        <button class="btn btn-primary" style="margin-top:300px">Vote!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>
+
